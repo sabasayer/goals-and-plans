@@ -1,11 +1,17 @@
 {
-  "private":true,
+  "private": true,
   "name": "goals_and_plans",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "lerna run start --npm-client=yarn"
+  },
   "devDependencies": {
     "lerna": "^3.22.1",
     "typescript": "3.4.3"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
