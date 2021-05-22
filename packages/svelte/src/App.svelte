@@ -5,11 +5,19 @@
 
   export let url: string;
 
-  let theme: "g10" = "g10";
+  let theme: "g100" = "g100";
 </script>
 
-<Theme persist bind:theme>
-  <Router {url}>
-    <Route path="/" component={Home} />
-  </Router>
+<Theme persist {theme}>
+  <main>
+    <Router {url}>
+      <Route path="/" component={Home} />
+    </Router>
+  </main>
 </Theme>
+
+<style>
+  main {
+    padding: 8px;
+  }
+</style>
