@@ -26,7 +26,11 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "@apollo/client": "3.3.19",
+    "graphql": "^15.5.0",
+    "graphql-tag": "^2.12.4",
     "sirv-cli": "^1.0.0",
+    "svelte-apollo": "^0.4.0",
     "svelte-routing": "^1.6.0"
   }
 }

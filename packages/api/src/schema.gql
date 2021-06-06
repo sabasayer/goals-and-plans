@@ -3,7 +3,11 @@
 # ------------------------------------------------------
 
 type UserModel {
+  id: String!
   userName: String!
+  level: Float!
+  experience: Float!
+  token: String!
 }
 
 type Query {
@@ -11,8 +15,8 @@ type Query {
 }
 
 type Mutation {
-  register(user: RegisterUserInput!): String!
-  login(data: LoginUserInput!): Boolean!
+  register(user: RegisterUserInput!): UserModel!
+  login(data: LoginUserInput!): UserModel!
 }
 
 input RegisterUserInput {

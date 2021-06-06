@@ -1,3 +1,5 @@
-import { MongooseModule } from "@nestjs/mongoose";
+import { MongooseModule } from '@nestjs/mongoose';
 
-export const mongooseModule = MongooseModule.forRoot('mongodb://localhost/nest');
+export const mongooseModule = MongooseModule.forRoot(
+  'mongodb://localhost/nest',
+);

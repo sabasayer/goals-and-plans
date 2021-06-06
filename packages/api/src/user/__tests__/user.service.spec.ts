@@ -1,10 +1,16 @@
 import { getModelToken } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
-import { User } from '../schemas/user.schema';
+import { User, UserDocument } from '../schemas/user.schema';
 import { UserService } from '../user.service';
 
 describe('User Service', () => {
   let userService: UserService;
+
+  const mockUserModel = {
+    create: (user: User) => ({
+      _id: `${user.userName}_id`,
+    }),
+  };
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -12,11 +18,7 @@ describe('User Service', () => {
         UserService,
         {
           provide: getModelToken(User.name),
-          useValue: () => ({
-            save: () => {
-              _id: 1;
-            },
-          }),
+          useValue: mockUserModel,
         },
       ],
     }).compile();
@@ -24,11 +26,14 @@ describe('User Service', () => {
     userService = moduleRef.get<UserService>(UserService);
   });
 
-  describe('Register', async () => {
-    const user = await userService.register({
-      userName: 'test',
-      password: '1',
+  describe('Register', () => {
+    it('should register', async () => {
+      const user = await userService.register({
+        userName: 'test',
+        password: '1',
+      });
+      
+      expect(user?.id).toBe('test_id');
     });
-    expect(user?._id).toBeDefined();
   });
 });

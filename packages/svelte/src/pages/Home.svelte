@@ -11,7 +11,7 @@
   let headers = [
     { key: "name", value: "Name" },
     { key: "protocol", value: "Protocol" },
-    { key: "port", value: "Port" },
+    { key: "port", value: "Port" }, 
     { key: "rule", value: "Rule" },
   ];
 

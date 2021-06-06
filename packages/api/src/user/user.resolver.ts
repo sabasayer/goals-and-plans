@@ -1,33 +1,32 @@
-import { Resolver, Int, Args, Query, Mutation } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import { Resolver, Args, Query, Mutation } from '@nestjs/graphql';
+import { AuthGuard } from './auth.guard';
 import { LoginUserInput } from './dto/login-user.input';
 import { RegisterUserInput } from './dto/register-user.input';
 import { UserModel } from './models/user.model';
 import { UserService } from './user.service';
 
-@Resolver((of) => UserModel)
+@Resolver(() => UserModel)
 export class UserResolver {
   constructor(private userService: UserService) {}
 
-  @Query((returns) => UserModel, { nullable: true })
+  @Query(() => UserModel, { nullable: true })
+  @UseGuards(new AuthGuard())
   async user(
     @Args('id', { type: () => String }) id: string,
   ): Promise<UserModel | null> {
-    const res = await this.userService.find(id);
-    if (!res) return null;
-
-    return { userName: res.userName };
+    return this.userService.find(id);
   }
 
-  @Mutation((returns) => String)
+  @Mutation(() => UserModel)
   async register(
     @Args({ name: 'user', type: () => RegisterUserInput })
     user: RegisterUserInput,
   ) {
-    const res = await this.userService.register(user);
-    return res._id;
+    return await this.userService.register(user);
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => UserModel)
   async login(
     @Args({ name: 'data', type: () => LoginUserInput }) data: LoginUserInput,
   ) {
